@@ -1,3 +1,4 @@
+
 module.exports = {
 	root: true,
 	extends: [
@@ -26,5 +27,8 @@ module.exports = {
 				parser: '@typescript-eslint/parser'
 			}
 		}
-	]
+	],
+	rules: {
+		'semi': "error",
+	}
 };
