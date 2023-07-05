@@ -4,7 +4,7 @@
 		lowerBound: number;
 		upperBound: number;
 	}
-	const zones: Zone[] = [
+	let zones: Zone[] = [
 		{ name: '1', lowerBound: 0.5, upperBound: 0.6 },
 		{ name: '2', lowerBound: 0.6, upperBound: 0.7 },
 		{ name: '3', lowerBound: 0.7, upperBound: 0.8 },
@@ -44,17 +44,30 @@
 			}}
 		/>
 	</div>
-	<table class="table-auto w-1/2">
+	<table class="table-auto w-1/2 border-spacing-2 border-separate">
 		<thead class="text-left">
 			<th>Zone</th>
-			<th>Intensity</th>
+			<th>Intensity (%)</th>
 			<th>Total Heart Rate (BPM)</th>
 		</thead>
 		<tbody>
-			{#each zones as zone}
+			{#each zones as zone, i}
 				<tr>
 					<td>{zone.name}</td>
-					<td>{zone.lowerBound * 100}%-{zone.upperBound * 100}%</td>
+					<td
+						><input
+							value={zone.lowerBound * 100}
+							type="number"
+							on:input={(e) => (zones[i].lowerBound = e.currentTarget.valueAsNumber / 100)}
+							class="bg-slate-700 w-14 rounded px-2 py-1 hover:bg-slate-600 transition"
+						/>% to
+						<input
+							type="number"
+							value={zone.upperBound * 100}
+							class="bg-slate-700 w-14 rounded px-2 py-1 hover:bg-slate-600 transition"
+							on:input={(e) => (zones[i].upperBound = e.currentTarget.valueAsNumber / 100)}
+						/>%</td
+					>
 					<td>
 						{(zone.lowerBound * maxHeartRate).toFixed(0)}
 						- {(zone.upperBound * maxHeartRate).toFixed(0)}
